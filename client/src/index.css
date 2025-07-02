@@ -13,36 +13,36 @@ html {
 } /*16px*/
 
 :root {
-  /* colors */
-  --primary-50: #e0fcff;
-  --primary-100: #bef8fd;
-  --primary-200: #87eaf2;
-  --primary-300: #54d1db;
-  --primary-400: #38bec9;
-  --primary-500: #2cb1bc;
-  --primary-600: #14919b;
-  --primary-700: #0e7c86;
-  --primary-800: #0a6c74;
-  --primary-900: #044e54;
+  /* colors - warm earthy tones */
+  --primary-50: #faf6f0;
+  --primary-100: #f3eadc;
+  --primary-200: #e6d5b9;
+  --primary-300: #d9c096;
+  --primary-400: #c9a978;
+  --primary-500: #b8915a;
+  --primary-600: #a07a48;
+  --primary-700: #86633a;
+  --primary-800: #6c4c2c;
+  --primary-900: #53381e;
 
-  /* grey */
-  --grey-50: #f8fafc;
-  --grey-100: #f1f5f9;
-  --grey-200: #e2e8f0;
-  --grey-300: #cbd5e1;
-  --grey-400: #94a3b8;
-  --grey-500: #64748b;
-  --grey-600: #475569;
-  --grey-700: #334155;
-  --grey-800: #1e293b;
-  --grey-900: #0f172a;
+  /* grey - refined minimalist */
+  --grey-50: #f9f9f9;
+  --grey-100: #f0f0f0;
+  --grey-200: #e4e4e4;
+  --grey-300: #d1d1d1;
+  --grey-400: #a8a8a8;
+  --grey-500: #6d6d6d;
+  --grey-600: #525252;
+  --grey-700: #3d3d3d;
+  --grey-800: #292929;
+  --grey-900: #1a1a1a;
   /* rest of the colors */
   --black: #222;
   --white: #fff;
-  --red-light: #f8d7da;
-  --red-dark: #842029;
-  --green-light: #d1e7dd;
-  --green-dark: #0f5132;
+  --red-light: #ffe6e6;
+  --red-dark: #9e2a2a;
+  --green-light: #e6f2eb;
+  --green-dark: #2c6e49;
 
   --small-text: 0.875rem;
   --extra-small-text: 0.7em;
@@ -65,10 +65,10 @@ html {
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   /* DARK MODE */
 
-  --dark-mode-bg-color: #333;
-  --dark-mode-text-color: #f0f0f0;
-  --dark-mode-bg-secondary-color: #3f3f3f;
-  --dark-mode-text-secondary-color: var(--grey-300);
+  --dark-mode-bg-color: #2a2520;
+  --dark-mode-text-color: #f5f0e8;
+  --dark-mode-bg-secondary-color: #3a342e;
+  --dark-mode-text-secondary-color: #d9c096;
 
   --background-color: var(--grey-50);
   --text-color: var(--grey-900);
@@ -317,15 +317,15 @@ button:disabled {
 
 /* BUTTONS AND BADGES */
 .pending {
-  background: #fef3c7;
-  color: #f59e0b;
+  background: #fdf0d5;
+  color: #c17817;
 }
 
 .interview {
-  background: #e0e8f9;
-  color: #647acb;
+  background: #e0e7e9;
+  color: #4a6670;
 }
 .declined {
-  background: #ffeeee;
-  color: #d66a6a;
+  background: #f8e1e0;
+  color: #b23b3b;
 }
