@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.main`
   min-height: 100vh;
@@ -6,6 +6,7 @@ const Wrapper = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   img {
     width: 90vw;
     max-width: 600px;
