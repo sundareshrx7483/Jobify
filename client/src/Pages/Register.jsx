@@ -13,12 +13,17 @@ const Register = () => {
           labelText="last name"
           defaultValue="Sundaresh"
         />
-        <FormRow type="text" name="location" defaultValue="Salem" />
+        <FormRow
+          type="text"
+          name="location"
+          labelText="location"
+          defaultValue="Salem"
+        />
         <FormRow type="email" name="email" defaultValue="sundaresh@gmail.com" />
         <FormRow type="password" name="password" defaultValue="Sundar@123" />
         <button className="btn btn-block">Submit</button>
         <p>
-          Aldready a member?
+          Already a member?
           <Link to="/login" className="member-btn">
             Login
           </Link>
