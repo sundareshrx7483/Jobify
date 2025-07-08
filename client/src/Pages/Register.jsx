@@ -9,9 +9,15 @@ const Register = () => {
         <h4>Register</h4>
         <FormRow
           type="text"
+          name="name"
+          labelText="Name"
+          defaultValue="Sundaresh"
+        />
+        <FormRow
+          type="text"
           name="lastName"
           labelText="last name"
-          defaultValue="Sundaresh"
+          defaultValue="Sekar"
         />
         <FormRow
           type="text"
