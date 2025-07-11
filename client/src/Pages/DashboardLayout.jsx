@@ -15,6 +15,7 @@ const DashboardLayout = () => {
   };
 
   const toggleSidebar = () => {
+    console.log("toggled sidebar");
     setShowSidebar(!showSidebar);
   };
   const logoutUser = () => {
