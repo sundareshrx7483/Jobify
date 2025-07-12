@@ -37,13 +37,13 @@ const DashboardLayout = () => {
         <main className="dashboard">
           <SmallSidebar />
           <BigSidebar />
-        </main>
-        <div>
-          <Navbar />
-          <div className="dashboard-page">
-            <Outlet />
+          <div>
+            <Navbar />
+            <div className="dashboard-page">
+              <Outlet />
+            </div>
           </div>
-        </div>
+        </main>
       </Wrapper>
     </DashboardContext.Provider>
   );
