@@ -13,12 +13,12 @@ import {
   Admin,
 } from "./Pages/index.js";
 
-const checkIsDarkTheme = () => {
+export const checkIsDarkTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
   document.body.classList.toggle("dark-theme", isDarkTheme);
   return isDarkTheme;
 };
-const isDarkThemeEnabled = checkIsDarkTheme();
+checkIsDarkTheme();
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <DashboardLayout isDarkThemeEnabled={isDarkThemeEnabled} />,
+        element: <DashboardLayout />,
         children: [
           {
             index: true,
