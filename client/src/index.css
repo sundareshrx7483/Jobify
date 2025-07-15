@@ -13,42 +13,55 @@ html {
 } /*16px*/
 
 :root {
-  /* colors - warm earthy tones */
-  --primary-50: #faf6f0;
-  --primary-100: #f3eadc;
-  --primary-200: #e6d5b9;
-  --primary-300: #d9c096;
-  --primary-400: #c9a978;
-  --primary-500: #b8915a;
-  --primary-600: #a07a48;
-  --primary-700: #86633a;
-  --primary-800: #6c4c2c;
-  --primary-900: #53381e;
+  /* colors - modern vibrant theme */
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
 
-  /* grey - refined minimalist */
-  --grey-50: #f9f9f9;
-  --grey-100: #f0f0f0;
-  --grey-200: #e4e4e4;
-  --grey-300: #d1d1d1;
-  --grey-400: #a8a8a8;
-  --grey-500: #6d6d6d;
-  --grey-600: #525252;
-  --grey-700: #3d3d3d;
-  --grey-800: #292929;
-  --grey-900: #1a1a1a;
+  /* grey - modern neutral */
+  --grey-50: #fafafa;
+  --grey-100: #f4f4f5;
+  --grey-200: #e4e4e7;
+  --grey-300: #d4d4d8;
+  --grey-400: #a1a1aa;
+  --grey-500: #71717a;
+  --grey-600: #52525b;
+  --grey-700: #3f3f46;
+  --grey-800: #27272a;
+  --grey-900: #18181b;
   /* rest of the colors */
-  --black: #222;
-  --white: #fff;
-  --red-light: #ffe6e6;
-  --red-dark: #9e2a2a;
-  --green-light: #e6f2eb;
-  --green-dark: #2c6e49;
+  --black: #1f2937;
+  --white: #ffffff;
+  --red-light: #fef2f2;
+  --red-dark: #dc2626;
+  --green-light: #f0fdf4;
+  --green-dark: #16a34a;
+
+  /* accent colors */
+  --accent-purple: #8b5cf6;
+  --accent-purple-light: #f3e8ff;
+  --accent-pink: #ec4899;
+  --accent-pink-light: #fdf2f8;
+  --accent-emerald: #10b981;
+  --accent-emerald-light: #ecfdf5;
+
+  /* gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-400), var(--primary-600));
+  --gradient-secondary: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  --gradient-accent: linear-gradient(135deg, var(--primary-300), var(--accent-emerald));
 
   --small-text: 0.875rem;
   --extra-small-text: 0.7em;
   /* rest of the vars */
 
-  --border-radius: 0.25rem;
+  --border-radius: 0.5rem;
   --letter-spacing: 1px;
   --transition: 0.3s ease-in-out all;
   --max-width: 1120px;
@@ -56,21 +69,21 @@ html {
   --fluid-width: 90vw;
   --nav-height: 6rem;
   /* box shadow*/
-  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.08),
+    0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
+    0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.03);
   /* DARK MODE */
 
-  --dark-mode-bg-color: #2a2520;
-  --dark-mode-text-color: #f5f0e8;
-  --dark-mode-bg-secondary-color: #3a342e;
-  --dark-mode-text-secondary-color: #d9c096;
+  --dark-mode-bg-color: #0f172a;
+  --dark-mode-text-color: #f1f5f9;
+  --dark-mode-bg-secondary-color: #1e293b;
+  --dark-mode-text-secondary-color: #94a3b8;
 
-  --background-color: var(--grey-50);
+  --background-color: #fafaff;
   --text-color: var(--grey-900);
   --background-secondary-color: var(--white);
   --text-secondary-color: var(--grey-500);
@@ -176,19 +189,21 @@ ul {
 .btn {
   cursor: pointer;
   color: var(--white);
-  background: var(--primary-500);
+  background: var(--gradient-primary);
   border: transparent;
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   letter-spacing: var(--letter-spacing);
-  padding: 0.375rem 0.75rem;
-  box-shadow: var(--shadow-1);
+  padding: 0.5rem 1rem;
+  box-shadow: var(--shadow-2);
   transition: var(--transition);
   text-transform: capitalize;
   display: inline-block;
+  font-weight: 500;
 }
 .btn:hover {
   background: var(--primary-700);
   box-shadow: var(--shadow-3);
+  transform: translateY(-1px);
 }
 .btn-hipster {
   color: var(--primary-500);
@@ -234,10 +249,11 @@ button:disabled {
   width: 90vw;
   max-width: var(--fixed-width);
   background: var(--background-secondary-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-2);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-3);
   padding: 2rem 2.5rem;
   margin: 3rem auto;
+  border: 1px solid var(--grey-200);
 }
 .form-label {
   display: block;
@@ -251,11 +267,19 @@ button:disabled {
 .form-textarea,
 .form-select {
   width: 100%;
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   background: var(--background-color);
-  border: 1px solid var(--grey-300);
+  border: 2px solid var(--grey-200);
   color: var(--text-color);
+  transition: var(--transition);
+}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
 }
 .form-input,
 .form-select,
@@ -317,15 +341,24 @@ button:disabled {
 
 /* BUTTONS AND BADGES */
 .pending {
-  background: #fdf0d5;
-  color: #c17817;
+  background: #fef3c7;
+  color: #d97706;
 }
 
 .interview {
-  background: #e0e7e9;
-  color: #4a6670;
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 .declined {
-  background: #f8e1e0;
-  color: #b23b3b;
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Icon rotation animation */
+.rotate-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate-icon.rotated {
+  transform: rotate(180deg);
 }

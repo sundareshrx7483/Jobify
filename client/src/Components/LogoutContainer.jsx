@@ -15,7 +15,7 @@ const LogoutContainer = () => {
       >
         <FaUserCircle />
         {user?.name}
-        <FaCaretDown />
+        <FaCaretDown className={`rotate-icon ${showLogout ? "rotated" : ""}`} />
       </button>
       <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
         <button type="button" className="dropdown-btn" onClick={logoutUser}>
