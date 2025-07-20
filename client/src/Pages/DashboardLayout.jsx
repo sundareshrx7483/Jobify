@@ -6,7 +6,7 @@ import { checkIsDarkTheme } from "../App";
 
 const DashboardContext = createContext();
 
-const DashboardLayout = ({}) => {
+const DashboardLayout = () => {
   const user = { name: "Sundaresh" };
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkIsDarkTheme());
