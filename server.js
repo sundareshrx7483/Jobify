@@ -4,6 +4,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import jobRouter from "./routes/jobRouter.js";
 import mongoose from "mongoose";
+import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
+import { NotFoundError } from "./errors/customErrors.js";
 
 const app = express();
 app.use(express.json());
@@ -19,13 +21,10 @@ app.get("/", (req, res) => {
 app.use("/api/v1/jobs", jobRouter);
 
 app.use("*", (req, res) => {
-  res.status(400).json({ msg: "not found" });
+  throw new NotFoundError("NOT FOUND!!!");
 });
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: "something went wrong!!!" });
-});
+app.use(errorHandlerMiddleware);
 
 try {
   await mongoose.connect(process.env.MONGO_URL);
