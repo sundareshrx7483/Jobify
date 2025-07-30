@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { NotFoundError } from "./errors/customErrors.js";
 
+import { validateTest } from "./middlewares/validationMiddleware.js";
 const app = express();
 app.use(express.json());
 if (process.env.NODE_ENV === "development") {
@@ -16,6 +17,10 @@ const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.send("Hello world!");
+});
+
+app.post("/api/v1/test", validateTest, (req, res) => {
+  res.json({ msg: "Validation passed!", data: req.body });
 });
 
 app.use("/api/v1/jobs", jobRouter);
