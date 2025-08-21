@@ -7,15 +7,19 @@ import authRouter from "./routes/authRouter.js";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { NotFoundError } from "./errors/customErrors.js";
-
+import { authenticateUser } from "./middlewares/authMiddleware.js";
+import "cookie-parser";
+import cookieParser from "cookie-parser";
 const app = express();
+
+app.use(cookieParser());
 app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 const port = process.env.PORT || 5000;
 
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("*", (req, res) => {
   throw new NotFoundError("NOT FOUND!!!");
