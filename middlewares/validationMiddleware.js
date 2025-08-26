@@ -4,7 +4,7 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
-import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
+import { JOB_STATUS, JOB_TYPE, ROLE } from "../utils/constants.js";
 import mongoose from "mongoose";
 import Job from "../model/jobModel.js";
 import User from "../model/userModel.js";
@@ -46,7 +46,7 @@ export const validateIdParam = withValidationErrors([
     if (!isValidMongoId) throw new Error("invalid mongodb id");
     const job = await Job.findById(value);
     if (!job) throw new NotFoundError(`no job for id:${id}`);
-    const isAdmin = req.user.role === "admin";
+    const isAdmin = req.user.role === ROLE.ADMIN;
     const isOwner = req.user.userId === job.createdBy.toString();
     if (!isAdmin && !isOwner)
       throw new UnauthorizedError("not authorized to access this route");
