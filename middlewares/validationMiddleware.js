@@ -78,3 +78,19 @@ export const validateLoginInput = withValidationErrors([
   body("email").notEmpty().withMessage("email is required"),
   body("password").notEmpty().withMessage("password is required"),
 ]);
+
+
+export const validateUpdateUserInput = withValidationErrors([
+  body("name").notEmpty().withMessage("name is required"),
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .custom(async (email, { req }) => {
+      const user = await User.findOne({ email });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new BadRequestError("email has been taken!!!");
+      }
+    }),
+  body("location").notEmpty().withMessage("location is required"),
+  body("lastName").notEmpty().withMessage("last name is required"),
+]);
