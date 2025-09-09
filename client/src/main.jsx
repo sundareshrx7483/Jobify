@@ -3,9 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import "./modern-theme.css";
 import App from './App.jsx'
-fetch("/api/v1/test")
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+import api from "./utils/customFetch.js";
+
+const response = await api.get("/test");
+console.log(response.data);
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
