@@ -18,6 +18,8 @@ const UserSchema = mongoose.Schema({
     enum: Object.values(ROLE),
     default: "user",
   },
+  avatar: { type: String },
+  avatarPublicId: { type: String },
 });
 
 UserSchema.methods.toJSON = function () {

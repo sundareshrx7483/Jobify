@@ -9,16 +9,16 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     await api.post("/auth/register", data);
-    toast.success("Registration Successfull");
+    toast.success("Registration Successfull", { autoClose: 2000 });
     return redirect("/login");
   } catch (error) {
-    toast.error(error?.response?.data?.msg);
+    toast.error(error?.response?.data?.msg, {autoClose:3000});
     return error;
   }
 };
 const Register = () => {
   const navigation = useNavigation();
-  console.log(navigation);
+  // console.log(navigation);
   const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>

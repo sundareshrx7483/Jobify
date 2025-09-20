@@ -45,7 +45,7 @@ export const validateIdParam = withValidationErrors([
     const isValidMongoId = mongoose.Types.ObjectId.isValid(value);
     if (!isValidMongoId) throw new Error("invalid mongodb id");
     const job = await Job.findById(value);
-    if (!job) throw new NotFoundError(`no job for id:${id}`);
+    if (!job) throw new NotFoundError(`no job for id:${value}`);
     const isAdmin = req.user.role === ROLE.ADMIN;
     const isOwner = req.user.userId === job.createdBy.toString();
     if (!isAdmin && !isOwner)

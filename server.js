@@ -9,9 +9,25 @@ import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { NotFoundError } from "./errors/customErrors.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
-import "cookie-parser";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import cloudinary from "./utils/cloudinary.js";
 const app = express();
+
+// security middleware
+app.set("trust proxy", 1);
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+  })
+);
+app.use(helmet());
+app.use(mongoSanitize());
 
 app.use(cookieParser());
 app.use(express.json());
@@ -33,6 +49,8 @@ app.use(errorHandlerMiddleware);
 
 try {
   await mongoose.connect(process.env.MONGO_URL);
+  // Ensure cloudinary config is loaded by importing the module
+  cloudinary.v2.config();
   app.listen(port, () => {
     console.log(`server is running on port ${port} `);
   });

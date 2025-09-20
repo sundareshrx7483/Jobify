@@ -1,16 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, redirect, Form, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../Components";
+import api from "../utils/customFetch";
+import { toast } from "react-toastify";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await api.post("/auth/login", data);
+    toast.success("Logged in successfully", { autoClose: 2000 });
+    return redirect("/dashboard");
+  } catch (error) {
+    toast.error(error?.response?.data?.msg, { autoClose: 3000 });
+    return error;
+  }
+};
+
 const Login = () => {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>
-      <form className="form">
+      <Form method="post" className="form">
         <Logo />
         <h4>Login</h4>
         <FormRow type="email" name="email" defaultValue="sundaresh@gmail.com" />
         <FormRow type="password" name="password" defaultValue="Sundar@123" />
-        <button type="submit" className="btn btn-block">
-          Submit
+        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
+          {isSubmitting ? "submitting" : "submit"}
         </button>
         <button type="button" className="btn btn-block">
           explore the app
@@ -21,7 +39,7 @@ const Login = () => {
             Register
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   );
 };
