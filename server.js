@@ -40,7 +40,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 if (process.env.NODE_ENV === "production") {
-  // serve frontend
   app.use(express.static(path.join(__dirname, "client", "dist")));
 
   app.get("*", (req, res) => {
