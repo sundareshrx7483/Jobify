@@ -7,7 +7,7 @@ import { StatItem } from "../Components";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/users/admin/app-stats");
+    const { data } = await api.get("/users/admin/app-stats");
     return data;
   } catch (error) {
     toast.error("You are not authorized to view this page");

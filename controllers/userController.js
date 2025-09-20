@@ -21,7 +21,6 @@ export const updateUser = async (req, res) => {
   delete newUser.password;
 
   if (req.file) {
-    // Using memory storage: convert to Data URI and upload to Cloudinary
     const file = formatImage(req.file);
     const response = await cloudinary.v2.uploader.upload(file);
     newUser.avatar = response.secure_url;

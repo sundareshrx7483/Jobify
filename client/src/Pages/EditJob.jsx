@@ -10,7 +10,7 @@ import { SubmitBtn } from "../Components";
 export const loader = async ({ params }) => {
   const { id } = params;
   try {
-    const { data } = await customFetch.get(`/jobs/${id}`);
+    const { data } = await api.get(`/jobs/${id}`);
     return data.job;
   } catch (error) {
     toast.error("Failed to load job");
@@ -23,7 +23,7 @@ export const action = async ({ request, params }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
-    await customFetch.patch(`/jobs/${id}`, data);
+    await api.patch(`/jobs/${id}`, data);
     toast.success("Job updated");
     return redirect("/dashboard/all-jobs");
   } catch (error) {

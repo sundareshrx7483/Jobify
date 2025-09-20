@@ -8,7 +8,7 @@ export const loader = async ({ request }) => {
     const params = Object.fromEntries([
       ...new URL(request.url).searchParams.entries(),
     ]);
-    const { data } = await customFetch.get("/jobs", { params });
+    const { data } = await api.get("/jobs", { params });
     return { data, searchValues: { ...params } };
   } catch (error) {
     return error;

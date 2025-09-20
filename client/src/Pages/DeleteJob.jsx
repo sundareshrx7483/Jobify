@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const action = async ({ params }) => {
   const { id } = params;
   try {
-    await customFetch.delete(`/jobs/${id}`);
+    await api.delete(`/jobs/${id}`);
     toast.success("Job deleted");
   } catch (error) {
     toast.error(error?.response?.data?.msg || "Delete failed");

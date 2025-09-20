@@ -3,7 +3,7 @@ import customFetch from "../utils/customFetch";
 import { StatsContainer, ChartsContainer } from "../Components";
 
 export const loader = async () => {
-  const { data } = await customFetch.get("/jobs/stats");
+  const { data } = await api.get("/jobs/stats");
   return data;
 };
 
