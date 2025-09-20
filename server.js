@@ -39,10 +39,16 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+if (process.env.NODE_ENV === "production") {
+  // serve frontend
+  app.use(express.static(path.join(__dirname, "client", "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  });
+}
 const port = process.env.PORT || 5000;
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+
 app.get("/api/v1/test", (req, res) => {
   res.json({ msg: "test route" });
 });
