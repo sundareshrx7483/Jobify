@@ -7,16 +7,13 @@ const UserSchema = mongoose.Schema({
   password: String,
   lastName: {
     type: String,
-    default: "lastName",
   },
   location: {
     type: String,
-    default: "my-city",
   },
   role: {
     type: String,
     enum: Object.values(ROLE),
-    default: "user",
   },
   avatar: { type: String },
   avatarPublicId: { type: String },
