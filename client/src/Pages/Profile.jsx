@@ -2,7 +2,6 @@ import { FormRow, SubmitBtn } from "../Components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useOutletContext } from "react-router-dom";
 import { Form } from "react-router-dom";
-import api from "../utils/customFetch";
 import { toast } from "react-toastify";
 
 export const action = async ({ request }) => {
@@ -15,10 +14,24 @@ export const action = async ({ request }) => {
   }
 
   try {
-    await api.patch("/users/update-user", formData);
+    // ONLY CHANGE: Replace axios with fetch
+    const response = await fetch(
+      "https://jobify-1-4fx2.onrender.com/api/v1/users/update-user",
+      {
+        method: "PATCH",
+        body: formData,
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.msg || "Update failed");
+    }
+
     toast.success("Profile updated successfully");
   } catch (error) {
-    toast.error(error?.response?.data?.msg);
+    toast.error(error.message);
   }
   return null;
 };
