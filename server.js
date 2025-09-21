@@ -11,6 +11,7 @@ import { NotFoundError } from "./errors/customErrors.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import cors from "cors";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 import cloudinary from "./utils/cloudinary.js";
@@ -33,6 +34,22 @@ app.use(
 );
 app.use(helmet());
 app.use(mongoSanitize());
+
+// CORS configuration
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+  .split(",")
+  .map((o) => o.trim());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true, // allow cookies
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());

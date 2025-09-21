@@ -26,6 +26,7 @@
     "cloudinary": "^1.37.3",
     "concurrently": "^8.2.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "datauri": "^4.1.0",
     "dayjs": "^1.11.9",
     "dotenv": "^16.6.1",
