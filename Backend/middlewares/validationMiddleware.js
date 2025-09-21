@@ -4,10 +4,10 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
-import { JOB_STATUS, JOB_TYPE, ROLE } from "../utils/constants.js";
+import { JOB_STATUS, JOB_TYPE, ROLE } from "./utils/constants.js";
 import mongoose from "mongoose";
-import Job from "../model/jobModel.js";
-import User from "../model/userModel.js";
+import Job from "../../model/jobModel.js";
+import User from "../../model/userModel.js";
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
@@ -73,12 +73,10 @@ export const validateUserInput = withValidationErrors([
   body("lastName").notEmpty().withMessage("last name is required"),
 ]);
 
-
 export const validateLoginInput = withValidationErrors([
   body("email").notEmpty().withMessage("email is required"),
   body("password").notEmpty().withMessage("password is required"),
 ]);
-
 
 export const validateUpdateUserInput = withValidationErrors([
   body("name").notEmpty().withMessage("name is required"),

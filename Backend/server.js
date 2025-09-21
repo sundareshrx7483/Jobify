@@ -2,9 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import * as dotenv from "dotenv";
 dotenv.config();
-import jobRouter from "./routes/jobRouter.js";
-import authRouter from "./routes/authRouter.js";
-import userRouter from "./routes/userRouter.js";
+import jobRouter from "./errors/routes/jobRouter.js";
+import authRouter from "./errors/routes/authRouter.js";
+import userRouter from "./errors/routes/userRouter.js";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 import { NotFoundError } from "./errors/customErrors.js";
@@ -14,7 +14,7 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
-import cloudinary from "./utils/cloudinary.js";
+import cloudinary from "./middlewares/utils/cloudinary.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -88,4 +88,3 @@ try {
   console.log(error);
   process.exit(1);
 }
-
