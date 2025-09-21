@@ -1,10 +1,18 @@
 import { useLoaderData } from "react-router-dom";
-import customFetch from "../utils/customFetch";
+import api from "../utils/customFetch";
 import { StatsContainer, ChartsContainer } from "../Components";
 
+// Fetch stats from backend; always return a predictable shape
 export const loader = async () => {
-  const { data } = await api.get("/jobs/stats");
-  return data;
+  try {
+    const { data } = await api.get("/jobs/stats");
+    return data;
+  } catch (error) {
+    return {
+      defaultStats: { pending: 0, interview: 0, declined: 0 },
+      monthlyApplications: [],
+    };
+  }
 };
 
 const Stats = () => {

@@ -11,7 +11,7 @@ export const loader = async () => {
     const { data } = await api.get("/users/current-user");
     return data;
   } catch (error) {
-    redirect("/");
+    return redirect("/");
   }
 };
 

@@ -9,6 +9,7 @@ const Wrapper = styled.section`
     width: 90vw;
     margin: 0 auto;
     padding: 2rem 0;
+    overflow: visible; /* prevent clipping popovers/dropdowns */
   }
   @media (min-width: 992px) {
     .dashboard {

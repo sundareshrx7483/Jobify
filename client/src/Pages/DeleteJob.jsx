@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import customFetch from "../utils/customFetch";
+import api from "../utils/customFetch";
 import { toast } from "react-toastify";
 
 export const action = async ({ params }) => {

@@ -4,10 +4,10 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
-import { JOB_STATUS, JOB_TYPE, ROLE } from "./utils/constants.js";
+import { JOB_STATUS, JOB_TYPE, ROLE } from "../utils/constants.js";
 import mongoose from "mongoose";
-import Job from "../../model/jobModel.js";
-import User from "../../model/userModel.js";
+import Job from "../model/jobModel.js";
+import User from "../model/userModel.js";
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
@@ -79,16 +79,27 @@ export const validateLoginInput = withValidationErrors([
 ]);
 
 export const validateUpdateUserInput = withValidationErrors([
-  body("name").notEmpty().withMessage("name is required"),
-  body("email")
-    .notEmpty()
-    .withMessage("email is required")
-    .custom(async (email, { req }) => {
-      const user = await User.findOne({ email });
-      if (user && user._id.toString() !== req.user.userId) {
-        throw new BadRequestError("email has been taken!!!");
-      }
-    }),
-  body("location").notEmpty().withMessage("location is required"),
-  body("lastName").notEmpty().withMessage("last name is required"),
+  body("name").custom((value, { req }) => {
+    if (req.file) return true; // allow avatar-only updates
+    if (!value) throw new Error("name is required");
+    return true;
+  }),
+  body("email").custom(async (email, { req }) => {
+    if (req.file && !email) return true; // allow avatar-only updates
+    if (!email) throw new Error("email is required");
+    const user = await User.findOne({ email });
+    if (user && user._id.toString() !== req.user.userId) {
+      throw new BadRequestError("email has been taken!!!");
+    }
+  }),
+  body("location").custom((value, { req }) => {
+    if (req.file) return true;
+    if (!value) throw new Error("location is required");
+    return true;
+  }),
+  body("lastName").custom((value, { req }) => {
+    if (req.file) return true;
+    if (!value) throw new Error("last name is required");
+    return true;
+  }),
 ]);

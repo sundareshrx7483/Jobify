@@ -2,8 +2,8 @@ import Wrapper from "../assets/wrappers/DashboardFormPage";
 import FormRow from "../Components/FormRow";
 import FormRowSelect from "../Components/FormRowSelect";
 import { Form, useLoaderData, redirect } from "react-router-dom";
-import customFetch from "../utils/customFetch";
-import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
+import api from "../utils/customFetch";
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants";
 import { toast } from "react-toastify";
 import { SubmitBtn } from "../Components";
 

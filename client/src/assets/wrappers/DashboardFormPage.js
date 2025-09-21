@@ -5,6 +5,7 @@ const Wrapper = styled.section`
   width: 100%;
   background: var(--background-secondary-color);
   padding: 3rem 2rem 4rem;
+  overflow: visible; /* ensure dropdowns can escape the card */
   .form-title {
     margin-bottom: 2rem;
   }
@@ -15,6 +16,9 @@ const Wrapper = styled.section`
     padding: 0;
     max-width: 100%;
     width: 100%;
+    border: none; /* remove inner border inside dashboard card */
+    background: transparent; /* let wrapper's background show */
+    overflow: visible; /* prevent clipping native dropdown */
   }
   .form-row {
     margin-bottom: 0;
@@ -22,6 +26,7 @@ const Wrapper = styled.section`
   .form-center {
     display: grid;
     row-gap: 1rem;
+    overflow: visible; /* allow dropdown to render fully */
   }
   .form-btn {
     align-self: end;

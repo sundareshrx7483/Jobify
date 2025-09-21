@@ -1,7 +1,7 @@
 import { JobsContainer, SearchContainer } from "../Components";
 import { useLoaderData } from "react-router-dom";
 import { useContext, createContext } from "react";
-import customFetch from "../utils/customFetch";
+import api from "../utils/customFetch";
 
 export const loader = async ({ request }) => {
   try {
@@ -9,9 +9,27 @@ export const loader = async ({ request }) => {
       ...new URL(request.url).searchParams.entries(),
     ]);
     const { data } = await api.get("/jobs", { params });
-    return { data, searchValues: { ...params } };
+    return {
+      data,
+      searchValues: {
+        search: "",
+        jobStatus: "all",
+        jobType: "all",
+        sort: "newest",
+        ...params,
+      },
+    };
   } catch (error) {
-    return error;
+    // Ensure we always return the expected shape to avoid runtime errors
+    return {
+      data: { jobs: [], totalJobs: 0, numOfPages: 1, page: 1 },
+      searchValues: {
+        search: "",
+        jobStatus: "all",
+        jobType: "all",
+        sort: "newest",
+      },
+    };
   }
 };
 
