@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/SmallSidebar";
 import { useDashboardContext } from "../Pages/DashboardLayout";
 import Logo from "./Logo";
 
-import NavLinks from "./NavLinks.jsx";
+import NavLinks from "./Navlinks.jsx";
 
 const SmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useDashboardContext();
