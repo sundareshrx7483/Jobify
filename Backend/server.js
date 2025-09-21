@@ -34,32 +34,21 @@ app.use(
 app.use(helmet());
 app.use(mongoSanitize());
 
-// CORS - MUST be before other middlewares
+// CORS with YOUR EXACT VERCEL URLs
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      "https://jobify-jln2.vercel.app",
-      "https://jobify-jln2-1cj7bmncn-sundareshrx7483s-projects.vercel.app",
-      "http://localhost:5173",
-      "http://localhost:3000",
-    ];
-
-    // Allow requests with no origin (mobile apps, Postman, etc)
-    if (!origin) return callback(null, true);
-
-    if (
-      allowedOrigins.indexOf(origin) !== -1 ||
-      origin.includes("vercel.app")
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: [
+    "https://jobify-taupe-beta.vercel.app", // Your main domain
+    "https://jobify-7uy5qranl-sundareshrx7483s-projects.vercel.app", // Your deployment URL
+    "https://jobify-jln2.vercel.app", // Previous URLs if still needed
+    "https://jobify-jln2-1cj7bmncn-sundareshrx7483s-projects.vercel.app",
+    "http://localhost:5173", // Local development
+    "http://localhost:3000",
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   exposedHeaders: ["set-cookie"],
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
