@@ -7,7 +7,6 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
-import { NotFoundError } from "./errors/customErrors.js";
 import { authenticateUser } from "./middlewares/authMiddleware.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
@@ -15,15 +14,13 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 import cloudinary from "./utils/cloudinary.js";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-// security middleware
+
+// Trust proxy - MUST be first
 app.set("trust proxy", 1);
-app.use(express.static(path.join(__dirname, "dist")));
+
+// Rate limiting
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -32,57 +29,78 @@ app.use(
     legacyHeaders: false,
   })
 );
+
+// Security
 app.use(helmet());
 app.use(mongoSanitize());
 
-// CORS configuration
-const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
-  .split(",")
-  .map((o) => o.trim());
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like mobile apps or curl)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true, // allow cookies
-  })
-);
+// CORS - MUST be before other middlewares
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://jobify-jln2.vercel.app",
+      "https://jobify-jln2-1cj7bmncn-sundareshrx7483s-projects.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ];
 
+    // Allow requests with no origin (mobile apps, Postman, etc)
+    if (!origin) return callback(null, true);
+
+    if (
+      allowedOrigins.indexOf(origin) !== -1 ||
+      origin.includes("vercel.app")
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+  exposedHeaders: ["set-cookie"],
+};
+
+app.use(cors(corsOptions));
+
+// Body parsing and cookies
 app.use(cookieParser());
 app.use(express.json());
+
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-  });
-}
 const port = process.env.PORT || 5000;
 
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
+// Routes
+app.get("/", (req, res) => {
+  res.json({ msg: "Jobify API Running!" });
 });
+
+app.get("/api/v1/test", (req, res) => {
+  res.json({ msg: "test route working!" });
+});
+
+app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
-app.use("/api/v1/auth", authRouter);
+
+// 404 handler
 app.use("*", (req, res) => {
-  throw new NotFoundError("NOT FOUND!!!");
+  res.status(404).json({ msg: "Route not found" });
 });
 
+// Error handler
 app.use(errorHandlerMiddleware);
 
+// Start server
 try {
   await mongoose.connect(process.env.MONGO_URL);
-  // Ensure cloudinary config is loaded by importing the module
   cloudinary.v2.config();
   app.listen(port, () => {
-    console.log(`server is running on port ${port} `);
+    console.log(`Server running on port ${port}`);
   });
 } catch (error) {
   console.log(error);
