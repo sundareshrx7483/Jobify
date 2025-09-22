@@ -30,7 +30,21 @@ const Login = () => {
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "submitting" : "submit"}
         </button>
-        <button type="button" className="btn btn-block">
+        <button
+          type="button"
+          className="btn btn-block"
+          onClick={async () => {
+            const email = "test@gmail.com";
+            const password = "Test@123";
+            try {
+              await api.post("/auth/login", { email, password });
+              toast.success("Test drive");
+              window.location.assign("/dashboard");
+            } catch (error) {
+              toast.error("Demo login failed");
+            }
+          }}
+        >
           explore the app
         </button>
         <p>
